@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Website Name</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Admin</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+    </span>
+  </div>
+</nav>
+<form nonvalidate #profileForm="ngForm">
+  <p>
+    <mat-form-field class="custom-width" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input [(ngModel)]="profile.username"
+             disabled #username="ngModel" name="username" matInput placeholder="Enter your username here">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint>Username of the person</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="custom-width" appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input [(ngModel)]="profile.firstName" #firstName="ngModel" name="firstName" matInput placeholder="Enter your first name here">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint>First Name of the user</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field class="custom-width" appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input [(ngModel)]="profile.lastName" #lastName="ngModel" name="lastName" matInput placeholder="Enter your last name here">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint>Last Name of the user</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field class="custom-width" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input [(ngModel)]="profile.email" #email="ngModel" name="email" matInput placeholder="Enter your email id here">
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-hint>Enter your email ID</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field class="custom-width" appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input [(ngModel)]="profile.phone" #phone="ngModel" name="phone" matInput placeholder="Enter your telephone number in the format mentioned in the hint">
+      <mat-icon matSuffix>phone</mat-icon>
+      <mat-hint>Enter in the format <strong>xxx-xxx-xxxx</strong></mat-hint>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field class="custom-width" appearance="outline">
+      <mat-label>Address</mat-label>
+      <input [(ngModel)]="profile.address" #address="ngModel" name="address" matInput placeholder="Enter your complete address">
+      <mat-icon matSuffix>home</mat-icon>
+      <mat-hint>Please enter detailed address</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <button mat-raised-button color="primary" id="profile-save-btn" (click)="saveProfile(profile)">Save</button>
+</form>

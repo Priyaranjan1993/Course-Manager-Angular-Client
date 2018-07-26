@@ -1,0 +1,72 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active" id="signIn" (click)="showLogin()"> Sign In </h2>
+    <h2 class="inactive underlineHover" id="register" (click)="showRegister()">Sign Up </h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form" *ngIf="login">
+      <form nonvalidate #loginForm="ngForm">
+        <input type="text" [(ngModel)]="user.username" #username="ngModel" id="login" class="fadeIn second"
+               name="Username"
+               placeholder="Username" required>
+        <mat-error class="error-styling" *ngIf="username.errors?.required && username.touched">
+          Username is required.
+        </mat-error>
+        <input type="password" [(ngModel)]="user.password" #password="ngModel" id="password" class="fadeIn third"
+               name="loginPassword"
+               placeholder="Password" required>
+        <mat-error class="error-styling" *ngIf="password.errors?.required && password.touched">
+          Password is required.
+        </mat-error>
+        <input type="submit" class="fadeIn fourth"
+               [disabled]="!loginForm.valid" class="fadeIn fourth" value="Log In" (click)="loginUser(user)">
+      </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Forgot Password?</a>
+      </div>
+    </div>
+
+    <div id="register-form" *ngIf="register">
+      <form nonvalidate #registerForm="ngForm">
+        <input type="text" [(ngModel)]="user.regUsername" #regUsername="ngModel" id="userName" class="fadeIn second"
+               name="User Name"
+               placeholder="User Name"
+               required>
+        <mat-error class="error-styling" *ngIf="regUsername.errors?.required && regUsername.touched">
+          Username is required.
+        </mat-error>
+        <mat-error class="error-styling" *ngIf="userNamePresent && regUsername.touched">
+          Username is already present. Please enter a different username.
+        </mat-error>
+        <input type="text" [(ngModel)]="user.regPassword" #regPassword="ngModel" id="regPassword"
+               class="fadeIn third" name="Password" placeholder="Password" minlength="6" required>
+        <mat-error class="error-styling" *ngIf="regPassword.errors?.required && regPassword.touched">
+          Password is required.
+        </mat-error>
+        <mat-error class="error-styling" *ngIf="regPassword.errors?.minlength && regPassword.touched">
+          Please enter minimum of 6 characters.
+        </mat-error>
+        <input type="text" [(ngModel)]="user.regConfirmPassword" #regConfirmPassword="ngModel" id="regPasswordConfirm"
+               class="fadeIn fourth" name="Confirm Password" placeholder="Confirm Password" required>
+        <mat-error class="error-styling" *ngIf="regConfirmPassword.errors?.required && regConfirmPassword.touched">
+          Retyping password is required.
+        </mat-error>
+        <mat-error class="error-styling" *ngIf="checkValid(user,regConfirmPassword.touched)">
+          Please enter the correct password in both the fields.
+        </mat-error>
+        <input type="submit" class="fadeIn fourth" value="Register"
+               [disabled]="!registerForm.valid || mismatchPassword"
+               (click)="registerUser(user)">
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let module of dataForModules" class="parent">
+      <div class="tiles-parent">
+        <mat-accordion>
+          <mat-expansion-panel class="tiles">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{module.title}}- {{module.id}}<span class="dot"></span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="expansion-btn-header">
+              <div *ngFor="let lesson of module.lessons">
+                <div class="row">
+                  <p id="lesson-title">{{lesson.title}}{{lesson.id}}</p>
+                  <button id="get-widget-btn" mat-button color="primary"
+                          (click)="showWidgets(lesson.id)">Show Widgets
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+  <mat-divider id="divider"></mat-divider>
+  <div *ngFor="let widget of widgetList">
+    <div *ngIf="widget.widgetType=== 'List'" class="widget-div">
+      <mat-card>
+        <mat-card-header>List Widget</mat-card-header>
+        <div *ngIf="widget.listSelect === 1">
+          <ul>
+            <li *ngFor="let list of widget.listTextToArray">
+              {{list}}
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="widget.listSelect === 2">
+          <ol>
+            <li *ngFor="let list of widget.listTextToArray">
+              {{list}}
+            </li>
+          </ol>
+        </div>
+      </mat-card>
+
+    </div>
+
+    <div *ngIf="widget.widgetType=== 'Image'" class="widget-div">
+      <mat-card>
+        <mat-card-header>Image Widget</mat-card-header>
+        <img src={{widget.src}} alt={{widget.searchName}}/>
+      </mat-card>
+    </div>
+
+    <div *ngIf="widget.widgetType=== 'Heading'" class="widget-div">
+      <mat-card>
+        <mat-card-header>Heading Widget</mat-card-header>
+        <span *ngIf="widget.size === 1"><h1>{{widget.text}}</h1></span>
+        <span *ngIf="widget.size === 2"><h2>{{widget.text}}</h2></span>
+        <span *ngIf="widget.size === 3"><h3>{{widget.text}}</h3></span>
+      </mat-card>
+    </div>
+
+    <div *ngIf="widget.widgetType=== 'Paragraph'" class="widget-div">
+      <mat-card>
+        <mat-card-header>Paragraph Widget</mat-card-header>
+        <p>{{widget.paragraphText}}</p>
+      </mat-card>
+    </div>
+
+    <div *ngIf="widget.widgetType=== 'Link'" class="widget-div">
+      <mat-card>
+        <mat-card-header>Link Widget</mat-card-header>
+        <a href={{widget.linkUrl}} target="_blank">{{widget.linkText}}</a>
+      </mat-card>
+    </div>
+  </div>
+</div>
