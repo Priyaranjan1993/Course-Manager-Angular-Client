@@ -6,7 +6,8 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
-import { SectionComponent } from './section/section.component';
+import {SectionComponent} from './section/section.component';
+import {AdminComponent, DialogOverviewExampleDialogComponent} from './admin/admin.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -97,12 +98,15 @@ export class DemoMaterialModule {
 }
 
 @NgModule({
+  entryComponents: [DialogOverviewExampleDialogComponent],
   declarations: [
     AppComponent,
     LoginComponent,
     ProfileComponent,
     HomeComponent,
-    SectionComponent
+    SectionComponent,
+    AdminComponent,
+    DialogOverviewExampleDialogComponent
   ],
   imports: [
     BrowserModule,

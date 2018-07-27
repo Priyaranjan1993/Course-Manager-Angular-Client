@@ -57,7 +57,13 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(user)
       .then((userResponse) => {
         console.log(userResponse);
-        this.router.navigate(['/profile', {username: userResponse.userName}]);
+        if (userResponse.role === 'admin') {
+          this.router.navigate(['/admin', {username: userResponse.userName}]);
+        }
+        else {
+          this.router.navigate(['/profile', {username: userResponse.userName}]);
+        }
+
       });
   }
 

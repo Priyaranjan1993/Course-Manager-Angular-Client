@@ -1,0 +1,53 @@
+<div *ngIf="data.modalType === 'edit'">
+  <h1 mat-dialog-title>Edit Section</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.sectionName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="data.maxSeats">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="data.availableSeats">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+      <mat-icon matSuffix>done</mat-icon>
+      Ok
+    </button>
+  </div>
+</div>
+
+<div *ngIf="data.modalType === 'delete'">
+  <h1 mat-dialog-title>Delete Section ?</h1>
+  <p>Are you sure you want to delete this section ?</p>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    <mat-icon matSuffix>done</mat-icon>
+    Yes
+  </button>
+</div>
+
+<div *ngIf="data.modalType === 'new'">
+  <h1 mat-dialog-title>Create Section</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.sectionName" placeholder="section name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="data.maxSeats" placeholder="max seats">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="data.availableSeats" placeholder="available seats">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+      <mat-icon matSuffix>done</mat-icon>
+      Ok
+    </button>
+  </div>
+</div>

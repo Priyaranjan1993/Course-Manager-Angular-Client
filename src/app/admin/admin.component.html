@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Website Name</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Admin</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+    </span>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div *ngFor="let course of courseList" class="parent">
+    <div class="tiles-parent">
+      <mat-accordion>
+        <mat-expansion-panel class="tiles">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{course.title}}- {{course.id}}<span class="dot"></span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-table class="table-margin-bottom" #table [dataSource]="dataSource[course.id]">
+
+            <ng-container matColumnDef="sectionName">
+              <mat-header-cell *matHeaderCellDef> section Name</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <p>{{row.sectionName}}</p>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="maxSeats">
+              <mat-header-cell *matHeaderCellDef> max Seats</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <p>{{row.maxSeats}}</p>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="availableSeats">
+              <mat-header-cell *matHeaderCellDef> available Seats</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <p>{{row.availableSeats}}</p>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actionsColumn">
+              <mat-header-cell *matHeaderCellDef>
+                <button mat-icon-button color="accent" (click)="createSection(course.id)">
+                  <mat-icon matSuffix>library_add</mat-icon>
+                </button>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+
+                <button mat-icon-button color="primary" focusable="false"
+                        (click)="editSection(row)">
+                  <mat-icon matSuffix>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button color="primary" focusable="false" (click)="deleteSection(row)">
+                  <mat-icon matSuffix>clear</mat-icon>
+                </button>
+
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>
+
