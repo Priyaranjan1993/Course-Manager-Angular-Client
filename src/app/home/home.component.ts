@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseService} from '../services/course.service';
 import {UserService} from '../services/user.service';
+import {CourseTypeService} from '../services/course-type.service';
 import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
   courseList;
 
   constructor(private courseService: CourseService, private userService: UserService,
+              private courseTypeService: CourseTypeService,
               private route: ActivatedRoute, private router: Router) {
   }
 
@@ -20,6 +22,14 @@ export class HomeComponent implements OnInit {
     this.courseService.fetchCourses()
       .then(() => {
         this.courseList = this.courseService.courseDetails;
+      })
+      .then(() => {
+        this.courseList.forEach((course) => {
+          this.courseTypeService.makeAllCoursesPublic(course.id)
+            .then(response => {
+              console.log(response);
+            });
+        });
       });
   }
 

@@ -10,6 +10,17 @@ export class UserService {
 
   }
 
+  getUserId() {
+    return fetch('http://localhost:3000/api/getUserId', {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(data => {
+        console.log(data);
+        return data.json();
+      });
+  }
+
   loginUser(user) {
     /*return fetch('https://still-beyond-49650.herokuapp.com/api/login', {*/
     return fetch('http://localhost:3000/api/login', {

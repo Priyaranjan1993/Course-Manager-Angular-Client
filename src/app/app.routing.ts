@@ -4,6 +4,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {HomeComponent} from './home/home.component';
 import {SectionComponent} from './section/section.component';
 import {AdminComponent} from './admin/admin.component';
+import { EnrollComponent } from './enroll/enroll.component';
 
 const routingPaths: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const routingPaths: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'course/:courseId', component: SectionComponent},
+  {path: 'course/enroll/:courseId', component: EnrollComponent},
   {path: '**', component: LoginComponent}
 ];
 

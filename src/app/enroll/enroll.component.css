@@ -1,0 +1,35 @@
+.tiles {
+  /*  width: 30%;*/
+  margin: 2% 2% 2% 2%;
+}
+
+.tiles-parent {
+  margin: 4% 0 0% 5%;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 7px 0 0 8px;
+}
+
+.redDot {
+  background-color: red;
+  margin: 0px 11px 0 0px;
+}
+
+.blueDot {
+  background-color: blue;
+  margin: 0px 11px 0 0px;
+}
+
+.parent {
+  width: 94%;
+}
+
+.descSpace {
+  margin: 2% 2% 4% 0;
+}
