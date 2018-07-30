@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Website Name</a>
+  <a class="navbar-brand" href="#">White Board</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
           aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,12 +10,13 @@
         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/profile">Profile</a>
+        <a class="nav-link" (click)="navigateProfile()">Profile</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/faculty">Faculty</a>
       </li>
     </ul>
+    <span id="username">{{userName}}</span>
     <span class="navbar-text">
       <button mat-raised-button color="primary" (click)="logout()">Logout</button>
     </span>
@@ -30,15 +31,15 @@
           <mat-expansion-panel class="tiles">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{course.title}}- {{course.id}}<span class="dot"></span>
+                {{course.title}}- {{course.id}}<span [ngClass]="type[course.id] === 'private'? 'redDot' : 'dot'"></span>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="expansion-btn-header">
-              <button *ngIf="type[course.id] === 'public'" (click)="makePrivate(course.id)" mat-raised-button
-                      color="primary">Make Private
+              <button *ngIf="type[course.id] !== 'private'" class="private-btn"
+                      (click)="makePrivate(course.id)" mat-raised-button>Make Private
               </button>
               <button *ngIf="type[course.id] === 'private'" (click)="makePublic(course.id)" mat-raised-button
-                      class="float-right" color="primary">
+                      color="primary">
                 Make Public
               </button>
             </div>

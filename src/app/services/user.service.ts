@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class UserService {
 
+  userName;
 
   constructor() {
   }
@@ -22,6 +23,23 @@ export class UserService {
         } else {
           return null;
         }
+      });
+  }
+
+  setUserName() {
+    return fetch('http://localhost:3000/api/getUserId', {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(data => {
+        if (data.headers.get('content-type') !== null) {
+          return data.json();
+        } else {
+          return null;
+        }
+      })
+      .then((data) => {
+        this.userName = data.userName;
       });
   }
 

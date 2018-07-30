@@ -35,6 +35,18 @@ export class AdminComponent implements OnInit {
   sectionList;
   deleteData;
   createData;
+  userName;
+  userId;
+  defaultData = {
+    availableSeats: 0,
+    courseId: 0,
+    maxSeats: 0,
+    modalType: '',
+    sectionId: '',
+    sectionName: ''
+  };
+  currentCourseId;
+  currentCourseName;
 
   constructor(private route: ActivatedRoute, private courseService: CourseService,
               private userService: UserService, private router: Router,
@@ -50,6 +62,30 @@ export class AdminComponent implements OnInit {
       })
       .then(() => {
         this.getDataSource();
+      })
+      .then(() => {
+        this.userService.setUserName();
+      })
+      .then(() => {
+        this.checkUserExists();
+      });
+  }
+
+  navigateProfile() {
+    this.router.navigate(['/profile', {username: this.userService.userName}]);
+  }
+
+  checkUserExists() {
+    this.userService.getUserId()
+      .then(data => {
+        if (data !== null) {
+          this.userName = data.userName;
+          this.userId = data._id;
+          console.log('Username --- ' + this.userName);
+        } else {
+          this.userName = '';
+        }
+
       });
   }
 
@@ -81,9 +117,11 @@ export class AdminComponent implements OnInit {
       });
   }
 
-  createSection(courseId) {
+  createSection(courseId, courseName) {
+    this.currentCourseId = courseId;
+    this.currentCourseName = courseName;
     const newDialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: {
         sectionName: '', maxSeats: '',
         availableSeats: '', courseId: courseId,
@@ -93,10 +131,24 @@ export class AdminComponent implements OnInit {
 
     newDialogRef.afterClosed().subscribe(result => {
       console.log('Add dialog was closed');
-      if (result !== undefined) {
+      if (result !== undefined && result.sectionName !== '') {
         this.createData = result;
-        console.log(this.deleteData);
+        console.log(this.createData);
         this.courseService.addSectionForCourse(courseId, result)
+          .then(response => {
+            console.log(response);
+            this.getDataSource();
+          });
+      } else if (result.sectionName === '') {
+        this.defaultData.availableSeats = 1;
+        this.defaultData.courseId = this.currentCourseId;
+        this.defaultData.maxSeats = 1;
+        this.defaultData.sectionName = this.currentCourseName + ' Section 1';
+        this.defaultData.sectionId = '';
+        this.defaultData.modalType = 'new';
+
+        console.log(this.defaultData);
+        this.courseService.addSectionForCourse(courseId, this.defaultData)
           .then(response => {
             console.log(response);
             this.getDataSource();
@@ -134,7 +186,7 @@ export class AdminComponent implements OnInit {
 
   editSection(row): void {
     const editDialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: {
         sectionName: row.sectionName, maxSeats: row.maxSeats,
         availableSeats: row.availableSeats, courseId: row.courseId,
@@ -161,6 +213,7 @@ export class AdminComponent implements OnInit {
 @Component({
   selector: 'app-dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
+  styleUrls: ['./admin.component.css']
 })
 export class DialogOverviewExampleDialogComponent {
 

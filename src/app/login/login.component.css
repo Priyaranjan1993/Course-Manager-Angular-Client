@@ -41,7 +41,6 @@ input[type=submit]:disabled,input[type=submit]:disabled:hover, button:disabled {
   box-shadow: 0 10px 30px 0 #eee;
   color: graytext;
 }
-/* STRUCTURE */
 
 .wrapper {
   display: flex;
@@ -76,8 +75,6 @@ input[type=submit]:disabled,input[type=submit]:disabled:hover, button:disabled {
   border-radius: 0 0 10px 10px;
 }
 
-/* TABS */
-
 h2.inactive {
   color: #cccccc;
 }
@@ -86,8 +83,6 @@ h2.active {
   color: #0d0d0d;
   border-bottom: 2px solid #5fbae9;
 }
-
-/* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset] {
   background-color: #56baed;

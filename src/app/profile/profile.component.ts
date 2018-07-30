@@ -2,12 +2,16 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+import {EnrollService} from '../services/enroll.service';
+import {CourseService} from '../services/course.service';
+
 import {
   MatSnackBar, MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
   MAT_SNACK_BAR_DATA
 } from '@angular/material';
 import {NotificationComponent} from '../login/login.component';
+import {CourseTypeService} from '../services/course-type.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,13 +33,27 @@ export class ProfileComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   userInfo;
+  userId;
+  courseList;
+  courseMap = [];
+  enrolledList = [];
 
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute, public snackBar: MatSnackBar) {
+  constructor(private userService: UserService, private router: Router,
+              private enrollService: EnrollService, private courseService: CourseService,
+              private route: ActivatedRoute, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.userInfo = this.route.snapshot.paramMap.get('username');
     console.log('My passed data ---' + this.userInfo);
+    this.courseService.fetchCourses()
+      .then(() => {
+        this.courseList = this.courseService.courseDetails;
+      }).then(() => {
+      this.courseList.forEach((course) => {
+        this.courseMap[course.id] = course.title;
+      });
+    });
     this.profile.username = this.userInfo;
     this.getProfile(this.profile.username);
   }
@@ -48,6 +66,14 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  fetchEnrolledData() {
+    this.enrollService.fetchEnrolledSection(this.userId)
+      .then(response => {
+        console.log(response);
+        this.enrolledList = response;
+      });
+  }
+
   getProfile(username) {
     this.userService.getProfile(username)
       .then((response) => {
@@ -57,6 +83,10 @@ export class ProfileComponent implements OnInit {
         this.profile.email = response.email;
         this.profile.phone = response.mobile;
         this.profile.address = response.address;
+        this.userId = response._id;
+      })
+      .then(() => {
+        this.fetchEnrolledData();
       });
   }
 

@@ -17,6 +17,8 @@ export class EnrollComponent implements OnInit {
   userId;
   orgSectionList;
   enrolledSectionData = [];
+  filteredenrolledSectionData = [];
+  filteredenrolledSectionDataForCourse = [];
   userName;
 
   constructor(private courseService: CourseService,
@@ -33,7 +35,14 @@ export class EnrollComponent implements OnInit {
         this.orgSectionList = data;
       }).then(() => {
       this.getUserId();
-    });
+    })
+      .then(() => {
+        this.userService.setUserName();
+      });
+  }
+
+  navigateProfile() {
+    this.router.navigate(['/profile', {username: this.userService.userName}]);
   }
 
   getUserId() {
@@ -47,18 +56,32 @@ export class EnrollComponent implements OnInit {
   }
 
   fetchEnrolledSection() {
+    this.sectionList = this.orgSectionList;
     this.enrollService.fetchEnrolledSection(this.userId)
       .then(data => {
         console.log(data);
         if (data.length !== 0) {
-          this.enrolledSectionData.push(data[0].section);
-          this.sectionList = this.sectionList.filter((val) => {
+          this.enrolledSectionData = data;
+          this.filteredenrolledSectionData = this.enrolledSectionData.filter((val) => {
             console.log(val);
-            return val._id !== this.enrolledSectionData[0]._id;
+            return val.section.courseId === Number(this.courseId);
           });
-        }
-        else {
-          this.enrolledSectionData = [];
+          // this.filteredenrolledSectionDataForCourse.push(this.filteredenrolledSectionData[0]);
+          if (this.filteredenrolledSectionData[0] !== undefined) {
+            this.sectionList = this.sectionList.filter((val) => {
+              console.log(val);
+              return val._id !== this.filteredenrolledSectionData[0].section._id;
+            });
+          }
+
+          /*          this.sectionList = this.sectionList.filter((val) => {
+                      console.log(val);
+                      this.filteredenrolledSectionData.forEach((filVal) => {
+                        return val._id !== filVal._id;
+                      });
+                    });*/
+        } else {
+          this.filteredenrolledSectionData = [];
           this.sectionList = this.orgSectionList;
         }
       });

@@ -10,12 +10,16 @@
         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" href="/profile">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="profile.username === 'admin'" href="#">Admin</a>
+        <a class="nav-link" *ngIf="profile.username === 'admin'" href="/admin">Admin</a>
+      </li>
+      <li *ngIf="profile.username === 'faculty'" class="nav-item">
+        <a class="nav-link" href="/faculty">Faculty</a>
       </li>
     </ul>
+    <span id="username">{{profile.username}}</span>
     <span class="navbar-text">
       <button mat-raised-button color="primary" (click)="logout()">Logout</button>
     </span>
@@ -82,3 +86,42 @@
 
   <button mat-raised-button color="primary" id="profile-save-btn" (click)="saveProfile(profile)">Save</button>
 </form>
+
+<!--<div *ngFor="let data of enrolledList">
+  <mat-accordion>
+    <mat-expansion-panel class="tiles">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <a routerLink='/course/enroll/{{data.section.courseId}}'>Course - {{courseMap[data.section.courseId]}} </a>/
+          Sec Name - {{data.section.sectionName}} / Max -
+          {{data.section.maxSeats}} / Available - {{data.section.availableSeats}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>-->
+
+<hr class="hr-text" data-content="Registered Courses"
+    *ngIf="(profile.username !== 'admin'&& profile.username !== 'faculty')">
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let data of enrolledList" class="tiles">
+      <mat-card class="example-card">
+        <mat-card-header class="example-card">
+          <mat-card-title><a routerLink='/course/enroll/{{data.section.courseId}}'>Course -
+            {{courseMap[data.section.courseId]}} </a></mat-card-title>
+          <mat-card-subtitle>{{data.section.sectionName}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="tile-body">
+            Max Seats : {{data.section.maxSeats}}
+          </p>
+          <p class="tile-body">
+            Available Seats : {{data.section.availableSeats}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

@@ -31,7 +31,14 @@ export class FacultyComponent implements OnInit {
               this.type[course.id] = data.type;
             });
         });
+      })
+      .then(() => {
+        this.userService.setUserName();
       });
+  }
+
+  navigateProfile() {
+    this.router.navigate(['/profile', {username: this.userService.userName}]);
   }
 
   logout() {

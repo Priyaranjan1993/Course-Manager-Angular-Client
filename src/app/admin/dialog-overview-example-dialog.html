@@ -2,18 +2,18 @@
   <h1 mat-dialog-title>Edit Section</h1>
   <div mat-dialog-content>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.sectionName">
+      <input matInput placeholder="Section Name" [(ngModel)]="data.sectionName" class="full-width">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" [(ngModel)]="data.maxSeats">
+      <input matInput placeholder="Max Seats" type="number" [(ngModel)]="data.maxSeats" class="full-width">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" [(ngModel)]="data.availableSeats">
+      <input matInput placeholder="Available Seats" type="number" [(ngModel)]="data.availableSeats" class="full-width">
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" class="shift-right" [mat-dialog-close]="data" cdkFocusInitial>
       <mat-icon matSuffix>done</mat-icon>
       Ok
     </button>
@@ -23,8 +23,8 @@
 <div *ngIf="data.modalType === 'delete'">
   <h1 mat-dialog-title>Delete Section ?</h1>
   <p>Are you sure you want to delete this section ?</p>
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+  <button mat-raised-button color="primary" (click)="onNoClick()">No</button>
+  <button mat-raised-button color="secondary" class="float-right" [mat-dialog-close]="data" cdkFocusInitial>
     <mat-icon matSuffix>done</mat-icon>
     Yes
   </button>
@@ -34,18 +34,18 @@
   <h1 mat-dialog-title>Create Section</h1>
   <div mat-dialog-content>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.sectionName" placeholder="section name">
+      <input matInput placeholder="Section Name" [(ngModel)]="data.sectionName">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" [(ngModel)]="data.maxSeats" placeholder="max seats">
+      <input matInput placeholder="Max Seats" type="number" [(ngModel)]="data.maxSeats">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" [(ngModel)]="data.availableSeats" placeholder="available seats">
+      <input matInput placeholder="Available Seats" type="number" [(ngModel)]="data.availableSeats">
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" class="shift-right" [mat-dialog-close]="data" cdkFocusInitial>
       <mat-icon matSuffix>done</mat-icon>
       Ok
     </button>

@@ -10,10 +10,13 @@
         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li *ngIf="userName !== ''" class="nav-item">
-        <a class="nav-link" href="/profile">Profile</a>
+        <a class="nav-link" (click)="navigateProfile()">Profile</a>
       </li>
       <li *ngIf="userName === 'admin'" class="nav-item">
-        <a class="nav-link" href="#">Admin</a>
+        <a class="nav-link" href="/admin">Admin</a>
+      </li>
+      <li *ngIf="userName === 'faculty'" class="nav-item">
+        <a class="nav-link" href="/faculty">Faculty</a>
       </li>
     </ul>
     <span id="username">{{userName}}</span>
@@ -27,7 +30,44 @@
 
   </div>
 </nav>
+<span class="redDot colorCode"><p class="colorCodeText">Private</p></span>
+<span class="dot colorCode"><p class="colorCodeText">Public</p></span>
+<hr class="hr-text" data-content="Enrolled Courses" *ngIf="enrolledList.length !== 0">
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let data of enrolledList" class="parent">
+      <div class="tiles-parent">
+        <mat-accordion>
+          <mat-expansion-panel class="tiles">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{courseMap[data.section.courseId]}}<span
+                [ngClass]="type[data.section.courseId] === 'private'? 'redDot' : 'dot'"></span>
+                <!--<span [ngClass]="type[data.section.courseId] === 'private'? 'redDot' : 'dot'"></span>
+                Course - {{courseMap[data.section.courseId]}}/ Sec Name - {{data.section.sectionName}} / Max -
+                {{data.section.maxSeats}} / Available - {{data.section.availableSeats}}-->
+              </mat-panel-title>
+              <mat-panel-description>
+                <span class="float-right">{{data.section.sectionName}}</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="expansion-btn-header">
+              <button routerLink='/course/{{data.section.courseId}}' mat-raised-button
+                      color="primary">View
+              </button>
+              <button routerLink='/course/enroll/{{data.section.courseId}}' mat-raised-button class="float-right"
+                      color="primary">
+                Enroll
+              </button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>
 
+<hr class="hr-text" data-content="Available Courses">
 <div class="container-fluid">
   <div class="row">
     <div *ngFor="let course of courseList" class="parent">
@@ -36,12 +76,19 @@
           <mat-expansion-panel class="tiles">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{course.title}}- {{course.id}}<span class="dot"></span>
+                {{course.title}}<span [ngClass]="type[course.id] === 'private'? 'redDot' : 'dot'"></span>
+                <!--{{course.id}}-->
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="expansion-btn-header">
-              <button routerLink='/course/{{course.id}}' mat-raised-button color="primary">View</button>
-              <button routerLink='/course/enroll/{{course.id}}' mat-raised-button class="float-right" color="primary">Enroll</button>
+              <button [disabled]="type[course.id] === 'private' && userName !== 'admin' && userName !== 'faculty' "
+                      routerLink='/course/{{course.id}}' mat-raised-button
+                      color="primary">View
+              </button>
+              <button [disabled]="userName === '' ||userName === 'admin' || userName === 'faculty'"
+                      routerLink='/course/enroll/{{course.id}}' mat-raised-button class="float-right" color="primary">
+                Enroll
+              </button>
             </div>
           </mat-expansion-panel>
         </mat-accordion>

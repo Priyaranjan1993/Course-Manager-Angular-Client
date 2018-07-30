@@ -7,10 +7,26 @@
   margin: 4% 0 0% 5%;
 }
 
+#username{
+  color: white;
+  text-transform: uppercase;
+  padding: 0 28px 2px 0px;
+  font-size: 18px;
+}
+
 .dot {
   height: 8px;
   width: 8px;
-  background-color: #bbb;
+  background-color: #6200EE;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 7px 0 0 8px;
+}
+
+.redDot{
+  height: 8px;
+  width: 8px;
+  background-color: #B00020;
   border-radius: 50%;
   display: inline-block;
   margin: 7px 0 0 8px;
@@ -18,4 +34,9 @@
 
 .parent {
   width: 30%;
+}
+
+.private-btn{
+  background-color: #B00020;
+  color: white;
 }

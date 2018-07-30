@@ -26,6 +26,8 @@ export class SectionComponent implements OnInit {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.dataForCourse = this.courseService.courseDetails.filter(data => data.id == this.courseId);
     this.dataForModules = this.dataForCourse[0].modules;
+    this.userService.setUserName();
+    this.checkUserExists();
   }
 
   checkUserExists() {
@@ -52,6 +54,10 @@ export class SectionComponent implements OnInit {
           this.noWidgets = false;
         }
       });
+  }
+
+  navigateProfile() {
+    this.router.navigate(['/profile', {username: this.userService.userName}]);
   }
 
   logout() {

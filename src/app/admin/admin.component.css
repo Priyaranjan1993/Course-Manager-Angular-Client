@@ -4,7 +4,7 @@
 }
 
 .tiles-parent {
-  margin: 4% 0 0% 0%;
+  margin: 4% 0 2% 0%;
 }
 
 .dot {
@@ -19,7 +19,6 @@
 .parent {
   width: 100%;
 }
-
 
 table {
   width: 100%;
@@ -69,3 +68,45 @@ tr.example-element-row:not(.example-expanded-row):active {
   opacity: 0.5;
 }
 
+#username {
+  color: white;
+  text-transform: uppercase;
+  padding: 0 28px 2px 0px;
+  font-size: 18px;
+}
+
+.table-header {
+  color: #3700B3;
+  font-size: 14px;
+}
+
+mat-footer-row, mat-header-row, mat-row, td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  border-bottom-color: white !important;
+}
+
+#table-header-title {
+  font-weight: bold;
+  color: #3700B3;
+  font-size: 17px;
+}
+
+#add-btn {
+  color: #3700B3;
+  margin: 0 0 0 19px;
+}
+
+#delete-btn {
+  color: #c51162;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field {
+  display: block !important;
+}
+
+.shift-right{
+  margin: 0 0 0 50%;
+}

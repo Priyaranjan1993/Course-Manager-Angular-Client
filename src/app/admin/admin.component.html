@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Website Name</a>
+  <a class="navbar-brand" href="#">White Board</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
           aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,12 +10,16 @@
         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" (click)="navigateProfile()">Profile</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Admin</a>
+      <li class="nav-item active" *ngIf="userName === 'admin'">
+        <a class="nav-link" href="/admin">Admin</a>
+      </li>
+      <li *ngIf="userName === 'faculty'" class="nav-item">
+        <a class="nav-link" href="/faculty">Faculty</a>
       </li>
     </ul>
+    <span id="username">{{userName}}</span>
     <span class="navbar-text">
       <button mat-raised-button color="primary" (click)="logout()">Logout</button>
     </span>
@@ -29,28 +33,29 @@
         <mat-expansion-panel class="tiles">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{course.title}}- {{course.id}}<span class="dot"></span>
+              <span id="table-header-title">{{course.title}}</span>
+             <!-- {{course.id}}-->
             </mat-panel-title>
           </mat-expansion-panel-header>
 
           <mat-table class="table-margin-bottom" #table [dataSource]="dataSource[course.id]">
 
             <ng-container matColumnDef="sectionName">
-              <mat-header-cell *matHeaderCellDef> section Name</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef class="table-header"><b>Section Name</b></mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <p>{{row.sectionName}}</p>
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="maxSeats">
-              <mat-header-cell *matHeaderCellDef> max Seats</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef class="table-header"><b>Max. Seats</b></mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <p>{{row.maxSeats}}</p>
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="availableSeats">
-              <mat-header-cell *matHeaderCellDef> available Seats</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef class="table-header"><b>Available Seats</b></mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <p>{{row.availableSeats}}</p>
               </mat-cell>
@@ -58,8 +63,8 @@
 
             <ng-container matColumnDef="actionsColumn">
               <mat-header-cell *matHeaderCellDef>
-                <button mat-icon-button color="accent" (click)="createSection(course.id)">
-                  <mat-icon matSuffix>library_add</mat-icon>
+                <button mat-icon-button id="add-btn" (click)="createSection(course.id,course.title)">
+                  <mat-icon matSuffix>add_circle</mat-icon>
                 </button>
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
@@ -69,7 +74,7 @@
                   <mat-icon matSuffix>edit</mat-icon>
                 </button>
 
-                <button mat-icon-button color="primary" focusable="false" (click)="deleteSection(row)">
+                <button mat-icon-button color="primary" id="delete-btn" focusable="false" (click)="deleteSection(row)">
                   <mat-icon matSuffix>clear</mat-icon>
                 </button>
 
