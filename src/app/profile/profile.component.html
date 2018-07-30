@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Website Name</a>
+  <a class="navbar-brand" href="#">White Board</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
           aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
         <a class="nav-link" href="#">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Admin</a>
+        <a class="nav-link" *ngIf="profile.username === 'admin'" href="#">Admin</a>
       </li>
     </ul>
     <span class="navbar-text">
@@ -34,7 +34,8 @@
   <p>
     <mat-form-field class="custom-width" appearance="outline">
       <mat-label>First Name</mat-label>
-      <input [(ngModel)]="profile.firstName" #firstName="ngModel" name="firstName" matInput placeholder="Enter your first name here">
+      <input [(ngModel)]="profile.firstName" #firstName="ngModel" name="firstName" matInput
+             placeholder="Enter your first name here">
       <mat-icon matSuffix>account_circle</mat-icon>
       <mat-hint>First Name of the user</mat-hint>
     </mat-form-field>
@@ -43,7 +44,8 @@
   <p>
     <mat-form-field class="custom-width" appearance="outline">
       <mat-label>Last Name</mat-label>
-      <input [(ngModel)]="profile.lastName" #lastName="ngModel" name="lastName" matInput placeholder="Enter your last name here">
+      <input [(ngModel)]="profile.lastName" #lastName="ngModel" name="lastName" matInput
+             placeholder="Enter your last name here">
       <mat-icon matSuffix>account_circle</mat-icon>
       <mat-hint>Last Name of the user</mat-hint>
     </mat-form-field>
@@ -61,7 +63,8 @@
   <p>
     <mat-form-field class="custom-width" appearance="outline">
       <mat-label>Phone Number</mat-label>
-      <input [(ngModel)]="profile.phone" #phone="ngModel" name="phone" matInput placeholder="Enter your telephone number in the format mentioned in the hint">
+      <input [(ngModel)]="profile.phone" #phone="ngModel" name="phone" matInput
+             placeholder="Enter your telephone number in the format mentioned in the hint">
       <mat-icon matSuffix>phone</mat-icon>
       <mat-hint>Enter in the format <strong>xxx-xxx-xxxx</strong></mat-hint>
     </mat-form-field>
@@ -70,7 +73,8 @@
   <p>
     <mat-form-field class="custom-width" appearance="outline">
       <mat-label>Address</mat-label>
-      <input [(ngModel)]="profile.address" #address="ngModel" name="address" matInput placeholder="Enter your complete address">
+      <input [(ngModel)]="profile.address" #address="ngModel" name="address" matInput
+             placeholder="Enter your complete address">
       <mat-icon matSuffix>home</mat-icon>
       <mat-hint>Please enter detailed address</mat-hint>
     </mat-form-field>

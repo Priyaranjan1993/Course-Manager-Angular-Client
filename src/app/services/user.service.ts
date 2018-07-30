@@ -7,8 +7,8 @@ export class UserService {
 
 
   constructor() {
-
   }
+
 
   getUserId() {
     return fetch('http://localhost:3000/api/getUserId', {
@@ -17,7 +17,11 @@ export class UserService {
     })
       .then(data => {
         console.log(data);
-        return data.json();
+        if (data.headers.get('content-type') !== null) {
+          return data.json();
+        } else {
+          return null;
+        }
       });
   }
 
@@ -31,7 +35,14 @@ export class UserService {
       body: JSON.stringify({userName: user.username, password: user.password}),
       credentials: 'include'
     })
-      .then(response => response.json());
+      .then(response => {
+        if (response.headers.get('content-type') !== null) {
+          return response.json();
+        } else {
+          return null;
+        }
+
+      });
   }
 
   registerUser(user, role) {
@@ -71,7 +82,7 @@ export class UserService {
       headers: {
         'content-type': 'application/json'
       },
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(profileData),
       credentials: 'include'
     })

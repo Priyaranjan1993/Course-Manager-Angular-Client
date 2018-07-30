@@ -28,10 +28,9 @@
                [disabled]="!loginForm.valid" class="fadeIn fourth" value="Log In" (click)="loginUser(user)">
       </form>
 
-      <!-- Remind Passowrd -->
-      <div id="formFooter">
+<!--      <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password?</a>
-      </div>
+      </div>-->
     </div>
 
     <div id="register-form" *ngIf="register">
@@ -47,12 +46,12 @@
           Username is already present. Please enter a different username.
         </mat-error>
         <input type="text" [(ngModel)]="user.regPassword" #regPassword="ngModel" id="regPassword"
-               class="fadeIn third" name="Password" placeholder="Password" minlength="6" required>
+               class="fadeIn third" name="Password" placeholder="Password" minlength="5" required>
         <mat-error class="error-styling" *ngIf="regPassword.errors?.required && regPassword.touched">
           Password is required.
         </mat-error>
         <mat-error class="error-styling" *ngIf="regPassword.errors?.minlength && regPassword.touched">
-          Please enter minimum of 6 characters.
+          Please enter minimum of 5 characters.
         </mat-error>
         <input type="text" [(ngModel)]="user.regConfirmPassword" #regConfirmPassword="ngModel" id="regPasswordConfirm"
                class="fadeIn fourth" name="Confirm Password" placeholder="Confirm Password" required>

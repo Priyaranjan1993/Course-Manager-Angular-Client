@@ -20,6 +20,13 @@
   width: 30%;
 }
 
+#username{
+  color: white;
+  text-transform: uppercase;
+  padding: 0 28px 2px 0px;
+  font-size: 18px;
+}
+
 .expansion-btn-header {
 
 }

@@ -20,8 +20,8 @@
   width: 30%;
 }
 
-.expansion-btn-header {
-
+.widget-content{
+  margin: 0 0 0 1%;
 }
 
 #lesson-title {
@@ -39,5 +39,10 @@
 
 .widget-div {
   margin: 10px 10px;
+}
+
+.watermark {
+  opacity: 0.5;
+  z-index: 99;
 }
 

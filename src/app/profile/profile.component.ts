@@ -1,7 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+import {
+  MatSnackBar, MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+  MAT_SNACK_BAR_DATA
+} from '@angular/material';
+import {NotificationComponent} from '../login/login.component';
 
 @Component({
   selector: 'app-profile',
@@ -19,9 +25,12 @@ export class ProfileComponent implements OnInit {
     address: ''
   };
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   userInfo;
 
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -35,6 +44,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateProfile(profile)
       .then((response) => {
         console.log('profile --- ' + response);
+        this.openSnackBar();
       });
   }
 
@@ -42,6 +52,11 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfile(username)
       .then((response) => {
         console.log('profile data --- ' + response);
+        this.profile.firstName = response.firstName;
+        this.profile.lastName = response.lastName;
+        this.profile.email = response.email;
+        this.profile.phone = response.mobile;
+        this.profile.address = response.address;
       });
   }
 
@@ -51,5 +66,38 @@ export class ProfileComponent implements OnInit {
         console.log('Logged out');
         this.router.navigate(['/login']);
       });
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(NotificationProfileComponent, {
+      duration: 6000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      data: 'profile'
+    });
+  }
+}
+
+
+@Component({
+  selector: 'app-login-alert',
+  templateUrl: '../notifications/Alert/alert.html',
+  styles: [`
+    .example-pizza-party {
+      color: white;
+    }
+
+    #success-sign {
+      position: relative;
+      top: 4px;
+      margin: 0 8px 0 0px;
+      color: green;
+      font-size: 19px;
+    }
+  `],
+})
+
+export class NotificationProfileComponent {
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
   }
 }

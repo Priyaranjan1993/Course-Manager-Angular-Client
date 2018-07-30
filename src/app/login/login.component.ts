@@ -1,6 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {
+  MatSnackBar, MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+  MAT_SNACK_BAR_DATA
+} from '@angular/material';
 
 declare var $: any;
 
@@ -20,10 +25,13 @@ export class LoginComponent implements OnInit {
     regPassword: '',
     regConfirmPassword: ''
   };
-  userNamePresent: boolean = false;
-  mismatchPassword: boolean = true;
+  userNamePresent = false;
+  mismatchPassword = true;
 
-  constructor(private userService: UserService, private router: Router) {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private userService: UserService, private router: Router, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -57,12 +65,18 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(user)
       .then((userResponse) => {
         console.log(userResponse);
-        if (userResponse.role === 'admin') {
-          this.router.navigate(['/admin', {username: userResponse.userName}]);
+        if (userResponse === null) {
+          this.openSnackBar();
+        } else {
+          if (userResponse.role === 'admin') {
+            this.router.navigate(['/admin', {username: userResponse.userName}]);
+          } else if (userResponse.role === 'faculty') {
+            this.router.navigate(['/faculty', {username: userResponse.userName}]);
+          } else {
+            this.router.navigate(['/profile', {username: userResponse.userName}]);
+          }
         }
-        else {
-          this.router.navigate(['/profile', {username: userResponse.userName}]);
-        }
+
 
       });
   }
@@ -73,8 +87,7 @@ export class LoginComponent implements OnInit {
       .then((res) => {
         if (res !== null) {
           this.userNamePresent = true;
-        }
-        else {
+        } else {
           this.userService.registerUser(this.user, 'student')
             .then((response) => {
               console.log(response);
@@ -90,12 +103,43 @@ export class LoginComponent implements OnInit {
       if (user.regPassword !== user.regConfirmPassword) {
         this.mismatchPassword = true;
         return true;
-      }
-      else {
+      } else {
         this.mismatchPassword = false;
         return false;
       }
     }
   }
 
+  openSnackBar() {
+    this.snackBar.openFromComponent(NotificationComponent, {
+      duration: 6000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      data: 'login'
+    });
+  }
+
+}
+
+@Component({
+  selector: 'app-login-alert',
+  templateUrl: '../notifications/Alert/alert.html',
+  styles: [`
+    .example-pizza-party {
+      color: white;
+    }
+
+    #error-sign {
+      position: relative;
+      top: 4px;
+      margin: 0 8px 0 0px;
+      color: red;
+      font-size: 19px;
+    }
+  `],
+})
+
+export class NotificationComponent {
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
+  }
 }

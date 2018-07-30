@@ -17,11 +17,12 @@ export class EnrollComponent implements OnInit {
   userId;
   orgSectionList;
   enrolledSectionData = [];
+  userName;
 
   constructor(private courseService: CourseService,
               private enrollService: EnrollService,
               private userService: UserService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -80,6 +81,27 @@ export class EnrollComponent implements OnInit {
       })
       .then(() => {
         this.fetchEnrolledSection();
+      });
+  }
+
+  checkUserExists() {
+    this.userService.getUserId()
+      .then(data => {
+        if (data !== null) {
+          this.userName = data.userName;
+          console.log('Username --- ' + this.userName);
+        } else {
+          this.userName = '';
+        }
+
+      });
+  }
+
+  logout() {
+    this.userService.logout()
+      .then(() => {
+        console.log('Logged out');
+        this.router.navigate(['/login']);
       });
   }
 

@@ -3,12 +3,12 @@ import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './login/login.component';
+import {LoginComponent, NotificationComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
-import {ProfileComponent} from './profile/profile.component';
+import {ProfileComponent, NotificationProfileComponent} from './profile/profile.component';
 import {SectionComponent} from './section/section.component';
-import { EnrollComponent } from './enroll/enroll.component';
-import { FacultyComponent } from './faculty/faculty.component';
+import {EnrollComponent} from './enroll/enroll.component';
+import {FacultyComponent} from './faculty/faculty.component';
 import {AdminComponent, DialogOverviewExampleDialogComponent} from './admin/admin.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -57,7 +57,6 @@ import {
 } from '@angular/material';
 
 
-
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -101,7 +100,7 @@ export class DemoMaterialModule {
 }
 
 @NgModule({
-  entryComponents: [DialogOverviewExampleDialogComponent],
+  entryComponents: [DialogOverviewExampleDialogComponent, NotificationComponent, NotificationProfileComponent],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -111,7 +110,9 @@ export class DemoMaterialModule {
     AdminComponent,
     EnrollComponent,
     FacultyComponent,
-    DialogOverviewExampleDialogComponent
+    DialogOverviewExampleDialogComponent,
+    NotificationComponent,
+    NotificationProfileComponent
   ],
   imports: [
     BrowserModule,

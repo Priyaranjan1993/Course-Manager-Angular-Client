@@ -12,6 +12,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 export class HomeComponent implements OnInit {
 
   courseList;
+  userName;
 
   constructor(private courseService: CourseService, private userService: UserService,
               private courseTypeService: CourseTypeService,
@@ -25,11 +26,27 @@ export class HomeComponent implements OnInit {
       })
       .then(() => {
         this.courseList.forEach((course) => {
-          this.courseTypeService.makeAllCoursesPublic(course.id)
+          this.courseTypeService.makePublic(course.id)
             .then(response => {
               console.log(response);
             });
         });
+      })
+      .then(() => {
+        this.checkUserExists();
+      });
+  }
+
+  checkUserExists() {
+    this.userService.getUserId()
+      .then(data => {
+        if (data !== null) {
+          this.userName = data.userName;
+          console.log('Username --- ' + this.userName);
+        } else {
+          this.userName = '';
+        }
+
       });
   }
 
@@ -40,10 +57,5 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/login']);
       });
   }
-
-  view() {
-
-  }
-
 
 }
